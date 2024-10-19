@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Scroll : MonoBehaviour
 {
-    private Renderer renderer;
     private float cloudMinMaxPosition = 10f;
     public bool isCloud = false;
     public float Speed = 1f;
@@ -13,16 +12,16 @@ public class Scroll : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        renderer = GetComponent<Renderer>();
         realSpeed = Speed;
     }
 
     // Update is called once per frame
     void Update()
     {
+        transform.position += Vector3.left * realSpeed * Time.deltaTime;
         if (isCloud)
         {
-            transform.position += Vector3.left * realSpeed * Time.deltaTime;
+            
             if (transform.position.x <= -cloudMinMaxPosition)
             {
                 var rng = Random.Range(-1f, 1f);
@@ -33,7 +32,10 @@ public class Scroll : MonoBehaviour
         }
         else
         {
-            renderer.material.mainTextureOffset += Vector2.right * Speed * Time.deltaTime;
+            if (transform.position.x < -18)
+            {
+                transform.position = new Vector2(34.9f, -2.582948f);
+            }
         }
     }
 }
